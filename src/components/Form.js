@@ -22,68 +22,75 @@ class Form extends React.Component {
           Nome
           <input
             id="name"
+            name="cardName"
             type="text"
             data-testid="name-input"
             value={ cardName }
-            onClick={ onInputChange }
+            onChange={ onInputChange }
           />
         </label>
         <label htmlFor="text">
           Descrição
           <textarea
+            name="cardDescription"
             id="text"
             data-testid="description-input"
             value={ cardDescription }
-            onClick={ onInputChange }
+            onChange={ onInputChange }
           />
         </label>
         <label htmlFor="atr1">
           Atributo 1
           <input
+            name="cardAttr1"
             id="atr1"
             type="number"
             data-testid="attr1-input"
             value={ cardAttr1 }
-            onClick={ onInputChange }
+            onChange={ onInputChange }
           />
         </label>
         <label htmlFor="atr2">
           Atributo 2
           <input
+            name="cardAttr2"
             id="atr2"
             type="number"
             data-testid="attr2-input"
             value={ cardAttr2 }
-            onClick={ onInputChange }
+            onChange={ onInputChange }
           />
         </label>
         <label htmlFor="atr3">
           Atributo 3
           <input
+            name="cardAttr3"
             id="atr3"
             type="number"
             data-testid="attr3-input"
             value={ cardAttr3 }
-            onClick={ onInputChange }
+            onChange={ onInputChange }
           />
         </label>
         <label htmlFor="img">
           Imagem
           <input
+            name="cardImage"
             id="img"
             type="text"
             data-testid="image-input"
             value={ cardImage }
-            onClick={ onInputChange }
+            onChange={ onInputChange }
           />
         </label>
         <label htmlFor="select">
           Raridade:
           <select
+            name="cardRare"
             id="select"
             data-testid="rare-input"
             value={ cardRare }
-            onClick={ onInputChange }
+            onChange={ onInputChange }
           >
             <option>normal</option>
             <option>raro</option>
@@ -93,17 +100,18 @@ class Form extends React.Component {
         <label htmlFor="check">
           Super Trybe Tryunfo
           <input
+            name="cardTrunfo"
             id="check"
             type="checkbox"
             data-testid="trunfo-input"
             checked={ cardTrunfo }
-            onClick={ onInputChange }
+            onChange={ onInputChange }
           />
         </label>
         <button
           data-testid="save-button"
           disabled={ isSaveButtonDisabled }
-          onClick={ onSaveButtonClick }
+          onChange={ onSaveButtonClick }
         >
           Salvar
         </button>

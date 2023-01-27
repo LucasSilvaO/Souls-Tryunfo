@@ -53,6 +53,6 @@ Card.propTypes = {
   cardAttr3: PropTypes.string.isRequired,
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
-  cardTrunfo: PropTypes.bool.isRequired,
+  cardTrunfo: PropTypes.string.isRequired,
 };
 export default Card;
