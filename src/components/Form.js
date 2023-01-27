@@ -111,7 +111,7 @@ class Form extends React.Component {
         <button
           data-testid="save-button"
           disabled={ isSaveButtonDisabled }
-          onChange={ onSaveButtonClick }
+          onClick={ onSaveButtonClick }
         >
           Salvar
         </button>
