@@ -122,6 +122,21 @@ class App extends React.Component {
     });
   };
 
+  excludeCard = (id) => {
+    const { cards, hasTrunfo } = this.state;
+    const index = cards.findIndex((element) => element.name === id);
+    const listCard = [...cards];
+    listCard.splice(index, 1);
+    this.setState({
+      cards: [...listCard],
+    });
+    if (hasTrunfo) {
+      this.setState({
+        hasTrunfo: false,
+      });
+    }
+  };
+
   render() {
     const {
       cardName,
@@ -162,17 +177,27 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
-        { cards.map((card, index) => (<Card
-          key={ index }
-          cardName={ card.name }
-          cardDescription={ card.description }
-          cardAttr1={ card.attr1 }
-          cardAttr2={ card.attr2 }
-          cardAttr3={ card.attr3 }
-          cardImage={ card.img }
-          cardRare={ card.rarity }
-          cardTrunfo={ card.trunfo }
-        />))}
+        { cards.map((card, index) => (
+          <>
+            <Card
+              key={ index }
+              cardName={ card.name }
+              cardDescription={ card.description }
+              cardAttr1={ card.attr1 }
+              cardAttr2={ card.attr2 }
+              cardAttr3={ card.attr3 }
+              cardImage={ card.img }
+              cardRare={ card.rarity }
+              cardTrunfo={ card.trunfo }
+            />
+            <button
+              name="btnExclude"
+              onClick={ () => this.excludeCard(card.name) }
+              data-testid="delete-button"
+            >
+              Excluir
+            </button>
+          </>))}
       </div>
     );
   }
