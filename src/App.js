@@ -13,6 +13,7 @@ class App extends React.Component {
     cardRare: '',
     cardTrunfo: '',
     isSaveButtonDisabled: true,
+    cards: [],
   };
 
   handleChange = ({ target }) => {
@@ -41,10 +42,8 @@ class App extends React.Component {
       cardImage,
     ];
     const formularioPreenchido = undefinedCases.every((caso) => caso.length > 0);
-    console.log(formularioPreenchido);
 
     if (formularioPreenchido && this.verificaParametros()) {
-      console.log('entrou');
       this.setState({
         isSaveButtonDisabled: false,
       });
@@ -79,6 +78,44 @@ class App extends React.Component {
     }
   };
 
+  onSaveButton = () => {
+    const {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo } = this.state;
+    const card = {
+      name: cardName,
+      description: cardDescription,
+      attr1: cardAttr1,
+      attr2: cardAttr2,
+      attr3: cardAttr3,
+      img: cardImage,
+      rarity: cardRare,
+      trunfo: cardTrunfo };
+    this.arrayOfCards(card);
+    this.setState({
+      cardName: '',
+      cardDescription: '',
+      cardImage: '',
+      cardAttr1: 0,
+      cardAttr2: 0,
+      cardAttr3: 0,
+      cardRare: '',
+    });
+  };
+
+  arrayOfCards = (card) => {
+    const { cards } = this.state;
+    this.setState({
+      cards: [...cards, card],
+    });
+  };
+
   render() {
     const {
       cardName,
@@ -104,6 +141,7 @@ class App extends React.Component {
           cardTrunfo={ cardTrunfo }
           isSaveButtonDisabled={ isSaveButtonDisabled }
           onInputChange={ this.handleChange }
+          onSaveButtonClick={ this.onSaveButton }
         />
         <Card
           cardName={ cardName }
