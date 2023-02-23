@@ -1,4 +1,5 @@
 import React from 'react';
+import dsCharacters from './characters';
 import Form from './components/Form';
 import Card from './components/Card';
 
@@ -15,14 +16,39 @@ class App extends React.Component {
     hasTrunfo: false,
     isSaveButtonDisabled: true,
     cards: [],
+    filteredCards: [],
+    hasFilteredCards: false,
   };
+
+  componentDidMount() {
+    this.setState({
+      cards: [...dsCharacters],
+    });
+  }
 
   handleChange = ({ target }) => {
     const { name } = target;
+    const { cards } = this.state;
     const value = target.type === 'checkbox' ? target.checked : target.value;
-    this.setState({
-      [name]: value,
-    }, this.handleUndefinedCases);
+    if (name === 'filtro') {
+      const filtered = cards.filter((element) => element.name.includes(target.value));
+      if (filtered.length > 0) {
+        this.setState({
+          hasFilteredCards: true,
+        });
+      } else {
+        this.setState({
+          hasFilteredCards: false,
+        });
+      }
+      this.setState({
+        filteredCards: [...filtered],
+      });
+    } else {
+      this.setState({
+        [name]: value,
+      }, this.handleUndefinedCases);
+    }
   };
 
   handleUndefinedCases = () => {
@@ -137,6 +163,10 @@ class App extends React.Component {
     }
   };
 
+  filterName = (target) => {
+    this.handleChange(target);
+  };
+
   render() {
     const {
       cardName,
@@ -149,35 +179,70 @@ class App extends React.Component {
       cardTrunfo,
       hasTrunfo,
       isSaveButtonDisabled,
-      cards } = this.state;
+      cards,
+      filteredCards,
+      hasFilteredCards } = this.state;
     return (
       <div>
-        <h1>Tryunfo</h1>
-        <Form
-          cardName={ cardName }
-          cardDescription={ cardDescription }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
-          isSaveButtonDisabled={ isSaveButtonDisabled }
-          hasTrunfo={ hasTrunfo }
-          onInputChange={ this.handleChange }
-          onSaveButtonClick={ this.onSaveButton }
+        <h1>Souls-Tryunfo</h1>
+        <div className="form-and-card">
+          <Form
+            cardName={ cardName }
+            cardDescription={ cardDescription }
+            cardAttr1={ cardAttr1 }
+            cardAttr2={ cardAttr2 }
+            cardAttr3={ cardAttr3 }
+            cardImage={ cardImage }
+            cardRare={ cardRare }
+            cardTrunfo={ cardTrunfo }
+            isSaveButtonDisabled={ isSaveButtonDisabled }
+            hasTrunfo={ hasTrunfo }
+            onInputChange={ this.handleChange }
+            onSaveButtonClick={ this.onSaveButton }
+          />
+          <Card
+            cardName={ cardName }
+            cardDescription={ cardDescription }
+            cardAttr1={ cardAttr1 }
+            cardAttr2={ cardAttr2 }
+            cardAttr3={ cardAttr3 }
+            cardImage={ cardImage }
+            cardRare={ cardRare }
+            cardTrunfo={ cardTrunfo }
+          />
+        </div>
+        <h2>Cartas prontas:</h2>
+        <input
+          name="filtro"
+          type="text"
+          data-testid="name-filter"
+          onChange={ this.filterName }
         />
-        <Card
-          cardName={ cardName }
-          cardDescription={ cardDescription }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
-        />
-        { cards.map((card, index) => (
+        <div className="ready-cards">
+          { !hasFilteredCards ? (cards.map((card, index) => (
+            <div key={ card.name }>
+              <Card
+                key={ index }
+                cardName={ card.name }
+                cardDescription={ card.description }
+                cardAttr1={ card.attr1 }
+                cardAttr2={ card.attr2 }
+                cardAttr3={ card.attr3 }
+                cardImage={ card.img }
+                cardRare={ card.rarity }
+                cardTrunfo={ card.trunfo }
+              />
+              <button
+                name="btnExclude"
+                onClick={ () => this.excludeCard(card.name) }
+                data-testid="delete-button"
+              >
+                Excluir
+              </button>
+            </div>))) : (<span />)}
+        </div>
+
+        { hasFilteredCards ? (filteredCards.map((card, index) => (
           <>
             <Card
               key={ index }
@@ -197,7 +262,7 @@ class App extends React.Component {
             >
               Excluir
             </button>
-          </>))}
+          </>))) : <span />}
       </div>
     );
   }

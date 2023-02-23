@@ -17,30 +17,34 @@ class Form extends React.Component {
       onInputChange,
       onSaveButtonClick } = this.props;
     return (
-      <>
-        <label htmlFor="name">
-          Nome
-          <input
-            id="name"
-            name="cardName"
-            type="text"
-            data-testid="name-input"
-            value={ cardName }
-            onChange={ onInputChange }
-          />
-        </label>
-        <label htmlFor="text">
-          Descrição
-          <textarea
-            name="cardDescription"
-            id="text"
-            data-testid="description-input"
-            value={ cardDescription }
-            onChange={ onInputChange }
-          />
-        </label>
+      <div className="form">
+        <div>
+          <label htmlFor="name">
+            Nome:
+            <input
+              id="name"
+              name="cardName"
+              type="text"
+              data-testid="name-input"
+              value={ cardName }
+              onChange={ onInputChange }
+            />
+          </label>
+        </div>
+        <div>
+          <label htmlFor="text">
+            Descrição:
+            <textarea
+              name="cardDescription"
+              id="text"
+              data-testid="description-input"
+              value={ cardDescription }
+              onChange={ onInputChange }
+            />
+          </label>
+        </div>
         <label htmlFor="atr1">
-          Atributo 1
+          Atributo 1:
           <input
             name="cardAttr1"
             id="atr1"
@@ -51,7 +55,7 @@ class Form extends React.Component {
           />
         </label>
         <label htmlFor="atr2">
-          Atributo 2
+          Atributo 2:
           <input
             name="cardAttr2"
             id="atr2"
@@ -62,7 +66,7 @@ class Form extends React.Component {
           />
         </label>
         <label htmlFor="atr3">
-          Atributo 3
+          Atributo 3:
           <input
             name="cardAttr3"
             id="atr3"
@@ -73,7 +77,7 @@ class Form extends React.Component {
           />
         </label>
         <label htmlFor="img">
-          Imagem
+          Imagem:
           <input
             name="cardImage"
             id="img"
@@ -117,7 +121,7 @@ class Form extends React.Component {
         >
           Salvar
         </button>
-      </>
+      </div>
     );
   }
 }

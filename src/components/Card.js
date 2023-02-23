@@ -14,12 +14,12 @@ class Card extends React.Component {
       cardTrunfo,
     } = this.props;
     return (
-      <div id={ cardName }>
+      <div id={ cardName } className="preview-card">
         <p data-testid="name-card">
           { cardName }
         </p>
         <img src={ cardImage } alt={ cardName } data-testid="image-card" />
-        <p data-testid="description-card">
+        <p data-testid="description-card" className="description">
           { cardDescription }
         </p>
         <ol>
